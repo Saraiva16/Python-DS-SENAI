@@ -7,6 +7,10 @@
 Documentação Pandas:
 https://pandas.pydata.org/docs/
 
+Base de dados:
+https://www.kaggle.com/
+
+
 
 # Considerações importantes:
 
