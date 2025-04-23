@@ -38,6 +38,8 @@ Tarefas
 4. 4. Gráfico de Linha: Mostre a evolução do lucro ao longo dos meses.
 
 
+# EXTRA:
+Aproveitei que finalizei um pouco antes dos outros e inventei um Tkinter que deixa escolher entre os tipos de gráficos
 
 
 
