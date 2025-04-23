@@ -35,7 +35,7 @@ Tarefas
 1. Gráfico de Pizza: Mostre a distribuição de vendas por mês.
 2. Gráfico de Dispersão: Relacione vendas e lucro.
 3. Gráfico de Barras: Compare vendas por mês.
-4. 4. Gráfico de Linha: Mostre a evolução do lucro ao longo dos meses.
+4. Gráfico de Linha: Mostre a evolução do lucro ao longo dos meses.
 
 
 # EXTRA:
