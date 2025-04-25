@@ -6,3 +6,21 @@ Pra começar vamos entender ver HTML para entender algumas tags importantes para
 
 # OBJETIVO
 Vamos usar uma <tag> no nosso programa Python para acessar o site que iremos fazer nosso web scraping
+
+# FERRAMENTAS
+1. HTML
+2. Python
+3. BeautifulSoup
+
+
+
+
+
+
+
+
+
+
+
+> Podemos hospedar nosso site no GitHub por ser fácil e rápido de trabalhar
+
