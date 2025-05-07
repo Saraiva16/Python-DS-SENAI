@@ -1,3 +1,6 @@
+# PROPOSTA: FAZER A FUNÇÃO inserir_dados() 
+
+
 import tkinter as tk
 from tkinter import messagebox
 import sqlite3
