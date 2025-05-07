@@ -33,6 +33,9 @@ def inserir_dados():
             cursor.execute('INSERT INTO pessoas (nome, idade, cidade) VALUES (?, ?, ?)', (nome, int(idade), cidade))
             conexao.commit()
             messagebox.showinfo("Sucesso", "Dados inseridos com sucesso!")
+            entrada_nome.delete(0, tk.END)
+            entrada_idade.delete(0, tk.END)
+            entrada_cidade.delete(0, tk.END)
         except ValueError:
             messagebox.showerror("Erro", "Idade deve ser um número inteiro.")
 
