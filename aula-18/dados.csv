@@ -1,0 +1,11 @@
+Paciente,Especialidade,Data,Tempo_espera,Médico
+Ana,Cardiologia,2025-01-01,30,Dr. Silva
+Carlos,Dermatologia,2025-01-02,45,Dr. Costa
+Mariana,Cardiologia,2025-01-03,25,Dr. Silva
+João,Pediatria,2025-01-04,40,Dr. Souza
+Lucia,Dermatologia,2025-01-05,35,Dr. Costa
+Pedro,Cardiologia,2025-01-06,50,Dr. Silva
+Julia,Pediatria,2025-01-07,30,Dr. Souza
+Roberto,Dermatologia,2025-01-08,20,Dr. Costa
+Fernanda,Pediatria,2025-01-09,45,Dr. Souza
+Ricardo,Cardiologia,2025-01-10,60,Dr. Silva
