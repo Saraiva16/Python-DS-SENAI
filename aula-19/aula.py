@@ -1,0 +1,150 @@
+import tkinter as tk
+import pandas as pd
+import matplotlib.pyplot as plt
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+from tkinter import ttk
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import accuracy_score
+from sklearn.preprocessing import LabelBinarizer
+
+
+
+df = pd.read_csv('titanic.csv')
+
+# PROCESSAR OS DADOS
+
+df['Age'].fillna(df['Age']).median()
+df['Sex'] = LabelBinarizer().fit_transform(df['Sex'])
+df['Pclass'] = df['Pclass'].astype('category')
+
+
+root = tk.Tk()
+root.geometry('2000x800')
+frame_grafico = tk.Frame(root)
+frame_grafico.pack(pady=10, fill='both', expand=True)
+
+
+frame_controle = tk.Frame(root)
+frame_controle.pack(pady=10)
+
+
+frame_resultado = tk.Frame(root)
+frame_resultado.pack(pady=10)
+
+label_tendencia = tk.Label(frame_resultado, text='', justify='left')
+label_tendencia.pack(pady=10)
+
+label_descricao = tk.Label(frame_resultado, text='',  justify='left')
+label_descricao.pack(pady=10)
+
+label_previsao = tk.Label(frame_resultado, text='',  justify='left')
+label_previsao.pack(pady=10)
+
+
+def limpar_frame():
+    for dado in frame_grafico.winfo_children():
+        dado.destroy()
+
+def mostrar_barras():
+    limpar_frame()
+    fig, ax = plt.subplots(figsize=(8,5))
+
+    sobreviventes_por_classe = df.groupby('Pclass')['Survived'].mean()*100
+    sobreviventes_por_classe.plot(kind='bar', color=['red', 'blue', 'yellow'])
+    canvas = FigureCanvasTkAgg(fig, master=frame_grafico)
+    canvas.draw()
+    canvas.get_tk_widget().pack(side='top', fill='both', expand=1)
+
+    insight = 'Passageiros da 1° classe tiveram maior taxa de sobrevivência'
+    label_tendencia.config(text = insight)
+
+def mostrar_linhas():
+    limpar_frame()
+    fig, ax = plt.subplots(figsize=(8,5))
+
+    idade_media_sobreviventes = df[df['Survived'] == 1].groupby('Pclass')['Age'].mean()
+    idade_media_nao_sobreviventes = df[df['Survived'] == 0].groupby('Pclass')['Age'].mean()
+
+    idade_media_sobreviventes.plot(kind='line', label = 'Sobreviventes', ax = ax)
+    idade_media_nao_sobreviventes.plot(kind='line', label = 'Não sobreviventes', ax = ax)
+    
+    canvas = FigureCanvasTkAgg(fig, master=frame_grafico)
+    canvas.draw()
+    canvas.get_tk_widget().pack(side='top', fill='both', expand=1)
+
+    insight = 'Passageiros da 3° classe tiveram menor taxa de sobrevivência.'
+    label_tendencia.config(text = insight)
+
+def mostrar_tendencia():
+    limpar_frame()
+    idade_media= df['Age'].mean()
+    idade_mediana= df['Age'].median()
+    idade_moda= df['Age'].mode()
+    
+    tarifa_media= df['Fare'].mean()
+    tarifa_mediana= df['Fare'].median()
+    tarifa_moda= df['Fare'].mode()[0]
+
+    resultado = (
+        f'Idade média: {idade_media} anos\nIdade mediana: {idade_mediana} anos\nIdade moda: {idade_moda} anos\nTarifa média: {tarifa_media}\nTarifa mediana: {tarifa_mediana}\nTarifa moda: {tarifa_moda}'
+    )
+
+    label_tendencia.config(text = resultado)
+    insight = 'Mediana da tarifa é menor que a média. Isso indica que pouco passageiros pagaram valores elevados.'
+    label_tendencia.config(text = insight)
+
+def mostrar_describe():
+    limpar_frame()
+    descricao = df[['Age', 'Pclass', 'Fare', 'Survived']].describe().to_string()
+    label_descricao.config(text = descricao)
+
+    insight = '75% dos passageiros pagaram 31 libras. O máximo foi de 512 (Observa-se essa grande diferença).'
+    label_descricao.config(text = insight)
+
+
+def previsao():
+    limpar_frame()
+    features = ['Pclass', 'Fare', 'Sex', 'Age']
+
+    X = df[features]
+    y = df['Survived']
+
+    X_treino, X_teste, y_treino, y_teste = train_test_split(X, y, test_size=0.2, random_state=42)
+
+    # treinar modelo
+    model = RandomForestClassifier(n_estimators=100, random_state=42)
+    model.fit(X_treino, y_treino)
+
+    # previsão
+    y_pred = model.predict(X_teste, y_teste)
+
+    importancia = pd.Series(model.feature_importances_,index=features).sort_values(ascending=0)
+    fig, ax = plt.subplots(figsize=(8,5))
+    importancia.plot(kind='bar', ax=ax)
+
+    canvas = FigureCanvasTkAgg(fig, master=frame_grafico)
+    canvas.draw()
+    canvas.get_tk_widget().pack(side='top', fill='both', expand=1)
+
+    label_descricao.config(text=y_pred)
+    insight = 'O fator principal para sobreviver no naufrágio do Titanic é o sexo. Se destaca o sexo feminino por maior taxa de sobrevivência.'
+    label_descricao.config(text = insight)
+
+btn_barras = ttk.Button(frame_controle, text='Gráfico de barras', command=mostrar_barras)
+btn_barras.grid(row=0, column=0, padx=5, pady=5)
+
+btn_linhas = ttk.Button(frame_controle, text='Gráfico de linhasbalirras', command=mostrar_linhas)
+btn_linhas.grid(row=1, column=0, padx=5, pady=5)
+
+btn_tendencia = ttk.Button(frame_controle, text='Ver tendência', command=mostrar_tendencia)
+btn_tendencia.grid(row=2, column=0, padx=5, pady=5)
+
+
+btn_describe = ttk.Button(frame_controle, text='Descrever dados', command=mostrar_describe)
+btn_describe.grid(row=3, column=0, padx=5, pady=5)
+
+btn_previsao = ttk.Button(frame_controle, text='Mostrar previsão de dados', command=previsao)
+btn_previsao.grid(row=4, column=0, padx=5, pady=5)
+
+root.mainloop()
