@@ -108,7 +108,7 @@ def mostrar_tendencia():
     
     )
 
-    label_tendencia.config(text = resultado)
+    label_descricao.config(text = resultado)
     insight = 'mediana da tarifa é menor que a média, indica que poucos passageiros pagaram valores elevados'
     label_tendencia.config(text = insight)
 
@@ -119,12 +119,12 @@ def mostrar_describe():
     label_descricao.config(text = descricao)
 
     insight = '75 "% " dos  Passageiros pagaram R$ 31 libras o máximo foi  512.00 (grande diferença) '
-    label_descricao.config(text = insight) 
+    label_previsao.config(text = insight) 
 
 def previsao():
     limpar_frame()
     
-    features = ['Pclass','Fare','Sex','Age']
+    features = ['Pclass','Sex','Age','Fare']
     X = df[features]
     y = df['Survived']
 
