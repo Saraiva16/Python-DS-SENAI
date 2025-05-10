@@ -9,11 +9,7 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score
 from sklearn.preprocessing import LabelBinarizer
 
-# Interface gráfica deve conter:
-# Gráfico de barras comparando estatísticas
-# Gráfico de dispersão relacionando variáveis
-# Gráfico de pizza mostrando distribuições
-# Botões para alternar entre visualizações
+
 # Previsão
 
 # Análise estatística:
@@ -25,15 +21,16 @@ from sklearn.preprocessing import LabelBinarizer
 # Mostrar importância das características no modelo
 
 # Funcionalidades:
-# Comparar médias de pontos por jogador por time
-# Analisar relação entre altura e desempenho
-# Distribuição de jogadores por posição
 # Prever chances de vitória com base em estatísticas históricas
 
 df = pd.read_csv('player_data.csv')
 
+df = df.dropna()
+
+
+
 root = tk.Tk()
-root.geometry('400x600')
+root.state('zoomed')
 frame_grafico = tk.Frame(root)
 frame_grafico.pack(pady=10, fill='both')
 
@@ -45,7 +42,7 @@ frame_resultado.pack(pady=10)
 
 def limpar_frame():
     for dado in frame_grafico.winfo_children():
-        dado.destroy
+        dado.destroy()
 
 
 def mostrar_dispersao_posicao_peso():
@@ -81,17 +78,71 @@ def mostrar_dispersao_posicao_altura():
 
 def comecaram_carreira():
     limpar_frame()
-    fig, ax = plt.subplots(figsize=(8,5))
+    fig, ax = plt.subplots(figsize=(8,8))
 
-    incio_por_posicao = df.groupby('year_start')['position']
-    incio_por_posicao.plot(kind='bar', color='red')
+    incio_carreira = df.groupby('year_start').size().sort_values()
+    
+
+    anos_selecionados = pd.concat([incio_carreira.tail(10)])
+
+    anos_selecionados.plot(kind='bar', ax=ax, color='skyblue', edgecolor='black')
+    ax.set_title('QUANTIDADE DE JOGADORES QUE COMEÇARAM SUAS CARREIRAS POR ANO')
+    ax.set_xlabel('Ano de início')
+    ax.set_ylabel('Quantidade de jogadores')
+    plt.xticks(rotation=45)
+
     canvas = FigureCanvasTkAgg(fig, master=frame_grafico)
     canvas.draw()
     canvas.get_tk_widget().pack(side=tk.TOP, fill=tk.BOTH, expand=1)
 
+def encerraram_carreira():
+    limpar_frame()
+    fig, ax = plt.subplots(figsize=(8,8))
+
+    final_carreira = df.groupby('year_end').size().sort_values()
     
 
+    anos_selecionados = pd.concat([final_carreira.tail(10)])
 
+    anos_selecionados.plot(kind='bar', ax=ax, color='skyblue', edgecolor='black')
+    ax.set_title('QUANTIDADE DE JOGADORES QUE ENCERRARAM SUAS CARREIRAS POR ANO')
+    ax.set_xlabel('Ano de início')
+    ax.set_ylabel('Quantidade de jogadores')
+    plt.xticks(rotation=45)
+
+    canvas = FigureCanvasTkAgg(fig, master=frame_grafico)
+    canvas.draw()
+    canvas.get_tk_widget().pack(side=tk.TOP, fill=tk.BOTH, expand=1)
+
+def universidades_gerando_lendas():
+    limpar_frame()
+    fig, ax = plt.subplots(figsize=(8,8))
+
+    formacao = df.groupby('college').size()
+
+    top_universidades = pd.concat([formacao.tail(10)])
+
+    top_universidades.plot(kind='pie', ax=ax, color=['red', 'blue', 'green'])
+    ax.set_title('UNIVERSIDADES QUE FORMARAM ASTROS') 
+
+    canvas = FigureCanvasTkAgg(fig, master=frame_grafico)
+    canvas.draw()
+    canvas.get_tk_widget().pack(side=tk.TOP, fill=tk.BOTH, expand=1)
+
+def posicao_mais_e_menos_jogadas():
+    limpar_frame()
+    fig, ax = plt.subplots(figsize=(8,6))
+    posicao_mais = df.groupby('position').size().sort_values()
+    posicao_mais.plot(kind='bar', ax=ax, color='skyblue', edgecolor='black')
+    
+    ax.set_title('POSIÇÕES MAIS JOGADAS') 
+    ax.set_xlabel('Posição')
+    ax.set_ylabel('Quantidade de jogadores')
+    plt.xticks(rotation=45)
+
+    canvas = FigureCanvasTkAgg(fig, master=frame_grafico)
+    canvas.draw()
+    canvas.get_tk_widget().pack(side=tk.TOP, fill=tk.BOTH, expand=1)
 
 
 
@@ -117,20 +168,23 @@ def comecaram_carreira():
     
 
 
-btn_posicao_por_peso = ttk.Button(frame_controle, text='POSIÇÃOxPESO - DISPERÇÃO', command=mostrar_dispersao_posicao_peso)
+btn_posicao_por_peso = ttk.Button(frame_controle, text='POSIÇÃOxPESO', command=mostrar_dispersao_posicao_peso)
 btn_posicao_por_peso.grid(row=0, column=0, padx=5, pady=5)
 
-btn_posicao_por_altura = ttk.Button(frame_controle, text='POSIÇÃOxALTURA - DISPERÇÃO', command=mostrar_dispersao_posicao_altura)
-btn_posicao_por_altura.grid(row=1, column=0, padx=5, pady=5)
+btn_posicao_por_altura = ttk.Button(frame_controle, text='POSIÇÃOxALTURA', command=mostrar_dispersao_posicao_altura)
+btn_posicao_por_altura.grid(row=0, column=1, padx=5, pady=5)
 
 btn_comecaram_carreira = ttk.Button(frame_controle, text='INÍCIO DE CARREIRA', command=comecaram_carreira)
-btn_comecaram_carreira.grid(row=2, column=0, padx=5, pady=5)
+btn_comecaram_carreira.grid(row=0, column=2, padx=5, pady=5)
 
+btn_encerraram_carreira = ttk.Button(frame_controle, text='FINAL DA CARREIRA', command=encerraram_carreira)
+btn_encerraram_carreira.grid(row=0, column=3, padx=5, pady=5)
 
+btn_universidades = ttk.Button(frame_controle, text='UNIVERSIDADES x ASTROS', command=universidades_gerando_lendas)
+btn_universidades.grid(row=0, column=4, padx=5, pady=5)
 
-
-
-
+btn_posicao_mais_e_menos_jogadas = ttk.Button(frame_controle, text='POSIÇÕES MAIS E MENOS JOGADAS', command=posicao_mais_e_menos_jogadas)
+btn_posicao_mais_e_menos_jogadas.grid(row=0, column=5, padx=5, pady=5)
 
 
 
