@@ -1,3 +1,7 @@
+> TEMOS DOIS PROJETOS PARA FAZER
+
+
+
 # Estudo de Caso: Hospital X Análise de Dados de Agendamentos e Pacientes
 
 Um hospital deseja melhorar a gestão de seus pacientes e agendamentos.
@@ -48,3 +52,72 @@ Paciente,Especialidade,Data,Tempo_espera,Médico
 4 Botão para Predição Básica com Scikit-Learn:
 
 - Exibe a predição básica usando a biblioteca Scikit-Learn.
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Criar um dashboard interativo semelhante ao exemplo do Titanic, mas utilizando dados esportivos. Você deverá desenvolver uma aplicação que analise estatísticas de atletas ou times e permita visualizações interativas.
+
+https://www.kaggle.com/datasets/drgilermo/nba-players-stats
+
+## **Pré-processamento dos dados:**
+
+Tratar valores faltantes
+Codificar variáveis categóricas
+Criar novas variáveis se necessário (ex: classificação de jogadores por posição)
+
+## Interface gráfica deve conter:
+
+Gráfico de barras comparando estatísticas
+Gráfico de dispersão relacionando variáveis
+Gráfico de pizza mostrando distribuições
+Botões para alternar entre visualizações
+
+Previsão
+
+## Análise estatística:
+
+Calcular medidas de tendência central
+Gerar descrição estatística dos dados
+Identificar e mostrar insights interessantes
+
+Modelo de machine learning (opcional para alunos avançados):
+Prever desempenho de atletas ou resultados de jogos
+Mostrar importância das características no modelo
+
+## adicionais:
+Labels explicativos para cada visualização
+Insights claros sobre os padrões identificados
+Design intuitivo e organizado
+
+## Funcionalidades:
+
+Comparar médias de pontos por jogador por time
+Analisar relação entre altura e desempenho
+Distribuição de jogadores por posição
+Prever chances de vitória com base em estatísticas históricas
+
+________________________________________________
+
+No Github: 
+
+Arquivo [README.md](http://readme.md/) explicando o objetivo, como rodar e principais funcionalidades
+
+Prints do dashboard, se possível
+
+Crie uma apresentação com 4 slides
+
+
+***A estrutura pode ser:***
+
+***Introdução ao problema
+Explique o desafio proposto, o dataset usado e o objetivo da análise.***
+
+***Processo de desenvolvimento
+Mostre o que você fez: pré-processamento, criação do dashboard, visualizações, análises e modelo (se aplicou).***
+
+***Principais descobertas
+Destaque os insights obtidos com os gráficos e análises estatísticas.***
+
+***Conclusão e aprendizados
+Finalize explicando como você resolveu o problema, o que aprendeu e próximos passos se continuasse o projeto.***
