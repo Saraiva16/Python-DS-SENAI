@@ -55,8 +55,10 @@ Paciente,Especialidade,Data,Tempo_espera,Médico
 
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# ANÁLISE JOGADORES NBA
 
-Criar um dashboard interativo semelhante ao exemplo do Titanic, mas utilizando dados esportivos. Você deverá desenvolver uma aplicação que analise estatísticas de atletas ou times e permita visualizações interativas.
+
+## Criar um dashboard interativo semelhante ao exemplo do Titanic, mas utilizando dados esportivos. Você deverá desenvolver uma aplicação que analise estatísticas de atletas ou times e permita visualizações interativas.
 
 https://www.kaggle.com/datasets/drgilermo/nba-players-stats
 
